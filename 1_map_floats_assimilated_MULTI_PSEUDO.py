@@ -14,7 +14,7 @@ from matplotlib.patches import Polygon
 name_basins, basin_borders = plot_map_subbasins()
 
 RUN, run    = 'IN_SITU_2017_2018'  , 'insitu'
-RUN1 ,run1  = 'SYN_NITRATE_ERROR'  , 'syn'
+RUN1 ,run1  = 'SYNTHETIC_2017_2018'  , 'syn'
 VARLIST = ['N3n','P_l','O2o']
 
 
@@ -43,14 +43,16 @@ map = Basemap(
      resolution =   'i', # Crude resolution
      projection = 'merc', # Transverse Mercator projection
 )
+
+map.drawparallels(np.arange(20,48,5.),labels=[1,0,0,0], linewidth=0.001, fontsize=24)
+map.drawmeridians(np.arange(-6,40,5.),labels=[0,0,0,1], linewidth=0.001, fontsize=24)
 map.drawcoastlines(color='silver' )
 map.drawmapboundary(fill_color='white')
 map.fillcontinents(color='white' ,lake_color='white')
-#map.drawparallels(np.arange(20,48,1.), labels=[1,0,0,0] ,dashes=[2,2])
-#map.drawmeridians(np.arange(-6,40,1.), labels=[0,0,0,1],dashes=[2,2])
 
-map.drawparallels(np.arange(20,48,5.),labels=[1,0,0,0], linewidth=0.0, fontsize=24)
-map.drawmeridians(np.arange(-6,40,5.),labels=[0,0,0,1], linewidth=0.0, fontsize=24)
+#  linewidth = 00 doesnt work with version of python 3.6 and after
+#map.drawparallels(np.arange(20,48,5.),labels=[1,0,0,0], linewidth=0.0, fontsize=20)
+#map.drawmeridians(np.arange(-6,40,5.),labels=[0,0,0,1], linewidth=0.0, fontsize=20)
 
 for III in range(0,len(name_basins)):
     lat_corners= np.array(basin_borders[III])[:,1]
@@ -71,7 +73,7 @@ lat=np.array(dfc.lat)
 lon=np.array(dfc.lon)
 lons, lats      = map(lon, lat)  # transform coordinates
 scat = ax.scatter(lons, lats,          s=200, zorder=4, marker='o', facecolor='tab:blue',  edgecolor='k'  , linewidth=0.9 , alpha=0.9)
-scat = ax.scatter(lons[0], lats[0],    s=200, zorder=4,  marker='o',  facecolor='tab:blue',  edgecolor='k', linewidth=0.9 , alpha=0.9, label= 'Reconst. Nitrate' )
+scat = ax.scatter(lons[0], lats[0],    s=200, zorder=4,  marker='o',  facecolor='tab:blue',  edgecolor='k', linewidth=0.9 , alpha=0.9, label= 'recNO3' )
 plt.gca()
 
 # ora sopra ci plotto Nitrati con un altro colore
@@ -85,16 +87,16 @@ lon=np.array(dfm.lon)
 lons,lats  = map(lon,lat)
 
 # plotto nitrati
-scat = ax.scatter(lons[0], lats[0],  s=150, zorder=4, marker='o' , color='orangered', edgecolor='k', linewidth=.1 ,  label= 'Nitrate' )
+scat = ax.scatter(lons[0], lats[0],  s=150, zorder=4, marker='o' , color='orangered', edgecolor='k', linewidth=.1 ,  label= 'NO3' )
 scat = ax.scatter(lons,    lats,     s=150, zorder=4, marker='o' , color='orangered', edgecolor='k', linewidth=.1 )
 
 
 # Cloro crocette
-#lat=np.array(CHLA.P_l_LAT)
-#lon=np.array(CHLA.P_l_LON)
-#lons, lats      = map(lon, lat)  # transform coordinates
-#scat = ax.scatter(lons, lats,          s=20, zorder=4, color='w', marker= "s", edgecolor='k', linewidth=0.9 , alpha=1)
-#scat = ax.scatter(lons[0], lats[0],    s=20, zorder=4, color='w', marker= "s", edgecolor='k', linewidth=0.9 , alpha=1, label= 'Chla' )
+lat=np.array(CHLA.P_l_LAT)
+lon=np.array(CHLA.P_l_LON)
+lons, lats      = map(lon, lat)  # transform coordinates
+scat = ax.scatter(lons, lats,          s=20, zorder=4, color='w', marker= "s", edgecolor='k', linewidth=0.9 , alpha=1)
+scat = ax.scatter(lons[0], lats[0],    s=20, zorder=4, color='w', marker= "s", edgecolor='k', linewidth=0.9 , alpha=1, label= 'Chl' )
 plt.gca()
 
 ax.annotate(text = "Alb",xy  = (map(-3.5,  35.8) ), fontsize=16,  weight='bold') #,bbox={'facecolor': 'w', 'alpha': 0.5, 'pad': 10}  ))
@@ -116,11 +118,15 @@ ax.annotate(text = "Lev2",xy = (map(31,    31.8)   ), fontsize=16, weight='bold'
 ax.annotate(text = "Lev3",xy = (map(30.,   35)   ), fontsize=16, weight='bold')
 ax.annotate(text = "Lev4",xy = (map(33.5,  34.1)   ), fontsize=16, weight='bold')
 
-plt.title('BGC-Argo availability for: 2017-2018', fontsize=24, weight='bold', color='k')
-plt.subplots_adjust(left=0.05,top = 0.90 ,bottom=0.12,  right=0.99)
-fig.legend(loc='lower left', bbox_to_anchor=(0.1,0.13), fontsize=24,  shadow=True, ncol=1)
-#plt.savefig('float_maps_dpi300.png')
-plt.savefig('z.png')
+#plt.text('Longitude (deg)', fontsize=22, rotation=90 )
+#plt.text('Latitude (deg)' , fontsize=22)
+
+plt.title('Spatial Distribution of BGC Argo and recNO3 in 2017-2018', fontsize=24, color='k')
+plt.subplots_adjust(left=0.1,top = 0.90 ,bottom=0.12,  right=0.95)
+fig.legend(loc='lower left', bbox_to_anchor=(0.1,0.13), fontsize=22,  shadow=True, ncol=1)
+
+#plt.show()
+plt.savefig('2_fig_float_maps_dpi300_.png') # , dpi=300)
 plt.close()
 
 
