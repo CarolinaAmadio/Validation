@@ -22,7 +22,7 @@ mkdir -p $OUTFIG/offshore $OUTFIG/coast
 
 # 1.   oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
 # Calcola files e li salva in pkl
-python ScMYvalidation_plan.py -s $SAT_WEEKLY_DIR -i $INPUT_AGGR_DIR -m $MASKFILE -c open_sea -o $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -l 10 -v chl
+echo python ScMYvalidation_plan.py -s $SAT_WEEKLY_DIR -i $INPUT_AGGR_DIR -m $MASKFILE -c open_sea -o $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -l 10 -v chl
 # end  oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
 
 exit 0
