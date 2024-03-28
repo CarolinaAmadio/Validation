@@ -6,6 +6,9 @@ Instruments:
 2)BGC-Float
 3)Glider
 
-RUN:
-OSSE
+Scripts work:
+1) to have the main statistics from the daily averaged model outputs or the model background.
+2) compare results of more than 1 run OSE
+
+ 
 
