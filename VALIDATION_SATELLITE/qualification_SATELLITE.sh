@@ -16,29 +16,58 @@ mkdir -p $VALIDATION_DIR ${VALIDATION_DIR}/FIGURE/ ${VALIDATION_DIR}/FIGURE//${R
 
 # SATELLITE output in RUN/SATELLITE or COMPARISON
 
-# figura 4.3 satellite
-OUTFIG=$OUTDIR/Fig4.3/
-mkdir -p $OUTFIG/offshore $OUTFIG/coast
+# 1.   Calcola files e li salva in pkl figura 4.3 satellite quid
+#OUTFIG=$OUTDIR/Fig4.3/
+#mkdir -p $OUTFIG
+# python ScMYvalidation_plan.py -s $SAT_WEEKLY_DIR -i $INPUT_AGGR_DIR -m $MASKFILE -c open_sea -o $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -l 10 -v chl
+# 1. end # 
 
-# 1.   oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
-# Calcola files e li salva in pkl
-echo python ScMYvalidation_plan.py -s $SAT_WEEKLY_DIR -i $INPUT_AGGR_DIR -m $MASKFILE -c open_sea -o $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -l 10 -v chl
-# end  oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
+#  2. creo i files csv per poi fare i barplots (un csv per run) OPEN SEA
+#mkdir -p $OUTDIR/BARPLOT/
+#python plot_timeseries_RMS_CORR.py -i $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -o $OUTDIR/BARPLOT/ -r $RUN
+# 2. end #
+
+
+#  3. fig 4.7refScale  CREATE MAP PPN INTEGRAL 0-200m #
+mkdir -p $OUTDIR/Fig4.7refScale/
+
+# seasonal generic without contour 
+DATESTART=20190101
+DATEEND=20200101
+
+STAGIONE=WINTER
+mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
+python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
+
+STAGIONE=SUMMER
+mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
+python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
+exit 0
+
+
+
+
+# seasonal :winter FMA_JJA
+STAGIONE=WINTER
+python averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s 20170101 -e 20190101 -seas $STAGIONE
+
+# seasonal :summer FMA_JJA
+STAGIONE=SUMMER
+python averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s 20170101 -e 20190101 -seas $STAGIONE
+# annual 
 
 exit 0
 
-#  2.  oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
-# creo i files csv per poi fare i barplots (un csv per run) OPEN SEA
-OUTBARPLOT=BARPLOT/
-mkdir -p $OUTBARPLOT
-#python plot_timeseries_RMS_CORR.py -i $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -o $OUTBARPLOT -r $RUN
-# end  oooooooooooooooooooooooooooooooooooooooooooooooooooo#
 
-#  3.  oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
-#fig 4.7refScale  CREATE MAP PPN INTEGRAL 0-200m
-mkdir -p $OUTDIR/Fig4.7refScale/
-#echo python averager_and_plot_map_ppn_refScale.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/ -l Plotlist_bio.xml -s 20170101 -e 20190101
-# end  oooooooooooooooooooooooooooooooooooooooooooooooooooo#
+
+python averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/ -l Plotlist_bio.xml -s 20190101 -e 20200101
+# several versions
+#averager_and_plot_map_ppn_refScale_seas_FMA_JJA_original.py
+#averager_and_plot_map_ppn_refScale_seas_FMA_JJA_withtableold.py
+#averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py
+# 3. end #
+
+exit 0
 
 # winter e summer richiede il file di assimilazione Float_assimilated_v9c.csv creato in home timeseries
 STAGIONE=SUMMER
