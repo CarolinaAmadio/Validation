@@ -37,57 +37,20 @@ DATEEND=20200101
 
 STAGIONE=WINTER
 mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
+#python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
 
 STAGIONE=SUMMER
 mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
-exit 0
+#python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
 
-
-
-
-# seasonal :winter FMA_JJA
-STAGIONE=WINTER
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s 20170101 -e 20190101 -seas $STAGIONE
-
-# seasonal :summer FMA_JJA
-STAGIONE=SUMMER
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s 20170101 -e 20190101 -seas $STAGIONE
-# annual 
-
-exit 0
-
-
-
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/ -l Plotlist_bio.xml -s 20190101 -e 20200101
 # several versions
 #averager_and_plot_map_ppn_refScale_seas_FMA_JJA_original.py
 #averager_and_plot_map_ppn_refScale_seas_FMA_JJA_withtableold.py
 #averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py
 # 3. end #
 
-exit 0
+#  4. fig quid time series 4.2 solo open sea #
+mkdir -p  $OUTDIR/Fig4.2/
+echo $OUTDIR/Fig4.2/
 
-# winter e summer richiede il file di assimilazione Float_assimilated_v9c.csv creato in home timeseries
-STAGIONE=SUMMER
-mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s 20170101 -e 20190101 -seas $STAGIONE
-
-STAGIONE=WINTER
-mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s 20170101 -e 20190101 -seas $STAGIONE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+echo python plot_timeseries_STD.py -v chl -i $OUTDIR/Fig4.3/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -o $OUTDIR/Fig4.2/
