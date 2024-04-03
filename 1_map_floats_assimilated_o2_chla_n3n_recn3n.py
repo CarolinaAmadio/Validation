@@ -13,26 +13,26 @@ from basins_CA import plot_map_subbasins
 from matplotlib.patches import Polygon
 name_basins, basin_borders = plot_map_subbasins()
 
-RUN, run    = 'IN_SITU_2017_2018'  , 'insitu'
-RUN1 ,run1  = 'SYNTHETIC_2017_2018'  , 'syn'
+RUN, run  = 'PPCon' , 'PPCon'
 VARLIST = ['N3n','P_l','O2o']
 
 
-dfc  = pd.read_csv('Float_assimilated_'+ RUN1    +'.csv' , index_col=0)
-dfm  = pd.read_csv('Float_assimilated_'+ RUN   +'.csv', index_col=0)
+df    = pd.read_csv('Float_assimilated_'+ RUN    +'.csv' , index_col=0)
+dfqc  = pd.read_csv('Float_assimilated_'+ RUN    +'_N3nqc.csv',   index_col=0)
 
+CHLA    = df[['P_l_LON', 'P_l_LAT', 'P_l_DATE', 'P_l_NAME',]]
+O2o     = df[['O2o_LON', 'O2o_LAT', 'O2o_DATE', 'O2o_NAME',]]
+N3n     = dfqc[dfqc.Qc>=0]
+N3n_rec = dfqc[dfqc.Qc<0]
 
-# ho gia verificato che chla e chl1 sono uguali 
-CHLA = dfc[['P_l_LON', 'P_l_LAT', 'P_l_DATE', 'P_l_NAME',]]
-
-# Prendo solo i nitrati di PSEUDO 1434 CIRCA dfc
+# la somma di len(N3n) + len(N3n_rec) = len(df)
 NAMEVAR  = 'N3n'
-strings=dfc.columns
+strings=df.columns
 LIST_sliced_df = [string for string in strings if NAMEVAR in string]
-dfc=dfc[LIST_sliced_df]
-dfc.dropna(how='all', inplace=True)
+df=df[LIST_sliced_df]
+df.dropna(how='all', inplace=True)
 LIST_COL         =  ['lon','lat','DATE','NAME']
-dfc.columns = LIST_COL
+df.columns = LIST_COL
 
 fig, ax = plt.subplots(figsize=(15, 8))
 map = Basemap(
@@ -69,21 +69,20 @@ map.fillcontinents(color='white' ,lake_color='white')
 
 
 # PLotto pseudonitrato dataset
-lat=np.array(dfc.lat)
-lon=np.array(dfc.lon)
+N3n_rec = N3n_rec.iloc[:,0:-1]
+N3n_rec.columns= LIST_COL
+lat=np.array(N3n_rec.lat)
+lon=np.array(N3n_rec.lon)
 lons, lats      = map(lon, lat)  # transform coordinates
 scat = ax.scatter(lons, lats,          s=200, zorder=4, marker='o', facecolor='tab:blue',  edgecolor='k'  , linewidth=0.9 , alpha=0.9)
 scat = ax.scatter(lons[0], lats[0],    s=200, zorder=4,  marker='o',  facecolor='tab:blue',  edgecolor='k', linewidth=0.9 , alpha=0.9, label= 'recNO3' )
 plt.gca()
 
-# ora sopra ci plotto Nitrati con un altro colore
-# lavoro su nitrati da dataframe di tutte le vars cone sopra
-dfm=dfm[LIST_sliced_df]
-dfm.dropna(how='all', inplace=True)
-dfm.columns = LIST_COL
 
-lat=np.array(dfm.lat)
-lon=np.array(dfm.lon)
+N3n = N3n.iloc[:,0:-1]
+N3n.columns= LIST_COL
+lat=np.array(N3n.lat)
+lon=np.array(N3n.lon)
 lons,lats  = map(lon,lat)
 
 # plotto nitrati
@@ -91,7 +90,7 @@ scat = ax.scatter(lons[0], lats[0],  s=150, zorder=4, marker='o' , color='orange
 scat = ax.scatter(lons,    lats,     s=150, zorder=4, marker='o' , color='orangered', edgecolor='k', linewidth=.1 )
 
 
-# Cloro crocette
+# Cloro quadretti
 lat=np.array(CHLA.P_l_LAT)
 lon=np.array(CHLA.P_l_LON)
 lons, lats      = map(lon, lat)  # transform coordinates
@@ -121,7 +120,7 @@ ax.annotate(text = "Lev4",xy = (map(33.5,  34.1)   ), fontsize=16, weight='bold'
 #plt.text('Longitude (deg)', fontsize=22, rotation=90 )
 #plt.text('Latitude (deg)' , fontsize=22)
 
-plt.title('Spatial Distribution of BGC Argo and recNO3 in 2017-2018', fontsize=24, color='k')
+plt.title('Spatial Distribution of BGC Argo and recNO3 in 2019', fontsize=24, color='k')
 plt.subplots_adjust(left=0.1,top = 0.90 ,bottom=0.12,  right=0.95)
 fig.legend(loc='lower left', bbox_to_anchor=(0.1,0.13), fontsize=22,  shadow=True, ncol=1)
 

@@ -7,21 +7,13 @@ import pandas as pd
 import warnings
 warnings.filterwarnings('ignore')
 
-#RUN, run  = 'hindcast_2017_2018'      , 'hindcast_2017_2018'      # -->  no assimilazioen
-#RUN, run  = 'Multivariate_2017_2018'  , 'Multivariate_2017_2018'
-#RUN, run  = 'PSEUDO_2017_2018_CAL'    , 'PSEUDO_2017_2018_CAL'
-#RUN, run  = 'SYNTHETIC_2017_2018'     , 'SYNTHETIC_2017_2018' 
-RUN, run  = 'SYNTHETIC_2017_2018_NITRATE_ERROR' , 'SYN_NITRATE_ERROR'
-#RUN, run  = 'IN_SITU_2017_2018' , 'IN_SITU_2017_2018'
 
-
-NITRATE_PSEUDO=True # to save specific dataframe for investigate Nitrate qc 
-
+RUN, run  = 'PPCON/DA_SATFLOAT_ppcon' , 'PPCon'
+NITRATE_PSEUDO=True  
 INDIR='/g100_scratch/userexternal/camadio0/'+RUN+'/wrkdir/MODEL/DA__FREQ_1/'
 INDA ='/g100_scratch/userexternal/camadio0/'+RUN+'/wrkdir/DA/'
 TLmis = TimeList.fromfilenames(None,INDIR,'*.arg_mis.dat', \
                prefix='',dateformat='%Y%m%d')
-
 TLmis_n3n = TimeList.fromfilenames(None,INDA,'*N3n*.csv', \
                prefix='',dateformat='%Y%m%d')
 
@@ -104,7 +96,7 @@ df1.N3n_LON = df1.N3n_LON.astype(float)
 
 df1['Qc'] = np.nan
 
-
+rejected=[]
 if NITRATE_PSEUDO:
   for FILEN3N in TLmis_n3n.filelist:
       serv = pd.read_csv(FILEN3N , index_col=0)
@@ -119,11 +111,16 @@ if NITRATE_PSEUDO:
          lon_ = s_tm.lon.drop_duplicates()
          d_tm = d_tm[d_tm.N3n_LAT==lat_.values[0] ]
          d_tm = d_tm[d_tm.N3n_LON==lon_.values[0] ]
-         IDX = d_tm.index.values[0]
-         df1.Qc.iloc[IDX] = s_tm.qc.drop_duplicates().values[0]
+         if len(d_tm)==0:
+             rejected.append(FILEN3N)
+         else:    
+             IDX = d_tm.index.values[0]
+             df1.Qc.iloc[IDX] = s_tm.qc.drop_duplicates().values[0]
         
 
-df1.to_csv('Float_assimilated_'+run+'_N3nqc.csv')
-
+if NITRATE_PSEUDO:
+   df1.to_csv('Float_assimilated_'+run+'_N3nqc.csv')
+   rejected = pd.DataFrame(rejected)
+   rejected.to_csv('fLOAT_N3N_anomalous.csv')
 
 
