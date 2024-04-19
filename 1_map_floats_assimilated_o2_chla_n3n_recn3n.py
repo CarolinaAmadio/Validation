@@ -13,6 +13,7 @@ from basins_CA import plot_map_subbasins
 from matplotlib.patches import Polygon
 name_basins, basin_borders = plot_map_subbasins()
 
+RUN, run  = 'DA_SATFLOAT' , 'DA_SATFLOAT'
 RUN, run  = 'PPCon' , 'PPCon'
 VARLIST = ['N3n','P_l','O2o']
 
@@ -71,12 +72,13 @@ map.fillcontinents(color='white' ,lake_color='white')
 # PLotto pseudonitrato dataset
 N3n_rec = N3n_rec.iloc[:,0:-1]
 N3n_rec.columns= LIST_COL
-lat=np.array(N3n_rec.lat)
-lon=np.array(N3n_rec.lon)
-lons, lats      = map(lon, lat)  # transform coordinates
-scat = ax.scatter(lons, lats,          s=200, zorder=4, marker='o', facecolor='tab:blue',  edgecolor='k'  , linewidth=0.9 , alpha=0.9)
-scat = ax.scatter(lons[0], lats[0],    s=200, zorder=4,  marker='o',  facecolor='tab:blue',  edgecolor='k', linewidth=0.9 , alpha=0.9, label= 'recNO3' )
-plt.gca()
+if len(N3n_rec) >0:
+   lat=np.array(N3n_rec.lat)
+   lon=np.array(N3n_rec.lon)
+   lons, lats      = map(lon, lat)  # transform coordinates
+   scat = ax.scatter(lons, lats,          s=200, zorder=4, marker='o', facecolor='tab:blue',  edgecolor='k'  , linewidth=0.9 , alpha=0.9)
+   scat = ax.scatter(lons[0], lats[0],    s=200, zorder=4,  marker='o',  facecolor='tab:blue',  edgecolor='k', linewidth=0.9 , alpha=0.9, label= 'recNO3' )
+   plt.gca()
 
 
 N3n = N3n.iloc[:,0:-1]
@@ -125,7 +127,7 @@ plt.subplots_adjust(left=0.1,top = 0.90 ,bottom=0.12,  right=0.95)
 fig.legend(loc='lower left', bbox_to_anchor=(0.1,0.13), fontsize=22,  shadow=True, ncol=1)
 
 #plt.show()
-plt.savefig('2_fig_float_maps_dpi300_.png') # , dpi=300)
+plt.savefig('2_fig_float_maps_dpi300_'+run+'.png') # , dpi=300)
 plt.close()
 
 

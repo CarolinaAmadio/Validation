@@ -12,7 +12,9 @@ from commons_ import col_to_dt
 
 #RUN, run    = 'IN_SITU_2017_2018'  , 'insitu'
 #RUN, run    = 'SYNTHETIC_2017_2018'  , 'syn'
-RUN, run     = 'PPCon' , 'PPCon'
+#RUN, run     = 'PPCon' , 'PPCon'
+#RUN, run     = 'DA_SATFLOAT','DA_SATFLOAT'
+RUN, run  = 'PPCon' , 'PPCon'
 
 VARLIST  = ['N3n','P_l','O2o']
 NAMEVAR  = 'N3n'

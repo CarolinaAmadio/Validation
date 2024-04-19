@@ -8,7 +8,9 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
+RUN, run  = 'PPCON/DA_SATFLOAT' , 'DA_SATFLOAT'
 RUN, run  = 'PPCON/DA_SATFLOAT_ppcon' , 'PPCon'
+
 NITRATE_PSEUDO=True  
 INDIR='/g100_scratch/userexternal/camadio0/'+RUN+'/wrkdir/MODEL/DA__FREQ_1/'
 INDA ='/g100_scratch/userexternal/camadio0/'+RUN+'/wrkdir/DA/'
