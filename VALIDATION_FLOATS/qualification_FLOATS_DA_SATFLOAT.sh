@@ -4,12 +4,10 @@ export ONLINE_REPO=/g100_work/OGS_devC/V9C/RUNS_SETUP/PREPROC/DA/
 export MASKFILE=/g100_work/OGS_prodC/OPA/V10C/prod/wrkdir/analysis/2/MODEL/meshmask.nc
 export PYTHONPATH=/g100_scratch/userexternal/camadio0/PPCON/bit.sea/ 
 
-RUN=DA_SATFLOAT_ppcon/
-
+RUN=DA_SATFLOAT/
 mkdir $CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}
 mkdir $CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}/FLOAT/
 OUTDIR=$CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}/FLOAT/RST_BEFORE/
-#OUTDIR=$CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}/FLOAT/AVE_DAILY/
 mkdir -p $OUTDIR
 
 #___________________________________________#
@@ -20,8 +18,8 @@ OUTFIGDIR=$OUTDIR/Floats_bias_rmse_Timeseries_Macro_yrly
 TABLE_DIR=$OUTDIR/Floats_bias_rmse_tables_Macro_yrly
 
 mkdir -p $OUTFIGDIR $TABLE_DIR
-#python biofloats_ms_Macro.py -m $MASKFILE -o $OUTDIR/float_bias_rmse_medianAE_Macro.nc
-#python biofloats_ms_plotter_Macro_yrly.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
+python biofloats_ms_Macro.py -m $MASKFILE -o $OUTDIR/float_bias_rmse_medianAE_Macro.nc
+python biofloats_ms_plotter_Macro_yrly.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
 
 
 #___________________________________________#
@@ -29,18 +27,13 @@ mkdir -p $OUTFIGDIR $TABLE_DIR
 OUTFIGDIR=$OUTDIR/Floats_bias_rmse_Timeseries_Macro_seas/
 TABLE_DIR=$OUTDIR/Floats_bias_rmse_tables_Macro_seas/
 mkdir -p $OUTFIGDIR $TABLE_DIR
-<<<<<<< HEAD
-#python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR -y 1
-echo python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
+python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR -y 1
+python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
 #___________________________________________#
-
-=======
-echo python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
-
+python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
 #___________________________________________#
 
 
->>>>>>> 167c30cf0b155429284a12e19c88de54653af7dd
 exit 0
 
 # soooootttoooobaaaciiinnniiiii
