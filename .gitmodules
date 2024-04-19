@@ -1,3 +1,9 @@
 [submodule "FLOAT_AVAILABILITY_"]
 	path = FLOAT_AVAILABILITY_
 	url = https://github.com/CarolinaAmadio/POSTPROC_NN_MLP_MED
+[submodule "FLOAT_AVAILABILITY/FLOAT_AVAILABILITY"]
+	path = FLOAT_AVAILABILITY/FLOAT_AVAILABILITY
+	url = https://github.com/CarolinaAmadio/POSTPROC_NN_MLP_MED
+[submodule "POSTPROC_NN_MLP_MED"]
+	path = POSTPROC_NN_MLP_MED
+	url = https://github.com/CarolinaAmadio/POSTPROC_NN_MLP_MED
