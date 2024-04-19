@@ -9,7 +9,6 @@ RUN=DA_SATFLOAT_ppcon/
 mkdir $CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}
 mkdir $CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}/FLOAT/
 OUTDIR=$CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}/FLOAT/RST_BEFORE/
-#OUTDIR=$CINECA_SCRATCH/PPCON/VALIDAZIONE_RUNs/FIGURE/${RUN}/FLOAT/AVE_DAILY/
 mkdir -p $OUTDIR
 
 #___________________________________________#
@@ -29,18 +28,15 @@ mkdir -p $OUTFIGDIR $TABLE_DIR
 OUTFIGDIR=$OUTDIR/Floats_bias_rmse_Timeseries_Macro_seas/
 TABLE_DIR=$OUTDIR/Floats_bias_rmse_tables_Macro_seas/
 mkdir -p $OUTFIGDIR $TABLE_DIR
-<<<<<<< HEAD
 #python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR -y 1
 echo python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
 #___________________________________________#
 
-=======
 echo python biofloats_ms_plotter_macro_seas.py -i $OUTDIR/float_bias_rmse_medianAE_Macro.nc -f $OUTFIGDIR -t $TABLE_DIR
 
 #___________________________________________#
 
 
->>>>>>> 167c30cf0b155429284a12e19c88de54653af7dd
 exit 0
 
 # soooootttoooobaaaciiinnniiiii
