@@ -20,34 +20,34 @@ mkdir -p $VALIDATION_DIR ${VALIDATION_DIR}/FIGURE/ ${VALIDATION_DIR}/FIGURE/${RU
 OUTFIG=$OUTDIR/Fig4.3/ #OUTDIR ==> [.../${RUN}]
 mkdir -p $OUTFIG
 python ScMYvalidation_plan.py -s $SAT_WEEKLY_DIR -i $INPUT_AGGR_DIR -m $MASKFILE -c open_sea -o $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -l 10 -v chl
-# 1. end # 
+# end 1# 
 
 #  2. creo i files csv per poi fare i barplots (un csv per run) OPEN SEA
 mkdir -p $OUTDIR/BARPLOT/ #OUTDIR ==> [.../${RUN}]
 python plot_timeseries_RMS_CORR.py -i $OUTFIG/export_data_ScMYValidation_plan_open_sea_STD_CORR.pkl -o $OUTDIR/BARPLOT/ -r $RUN
-# 2. end #
+# end 2#
 
 
 #  3. fig 4.7refScale  CREATE MAP PPN INTEGRAL 0-200m #
-mkdir -p $OUTDIR/Fig4.7refScale/  #OUTDIR ==> [.../${RUN}]
+#mkdir -p $OUTDIR/Fig4.7refScale/  #OUTDIR ==> [.../${RUN}]
 
 # seasonal generic without contour 
-DATESTART=20190101
-DATEEND=20200101
+#DATESTART=20190101
+#DATEEND=20200101
 
 STAGIONE=WINTER
-mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
+#mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
+#python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
 
 STAGIONE=SUMMER
-mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
-python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
+#mkdir -p $OUTDIR/Fig4.7refScale/$STAGIONE
+#python averager_and_plot_map_ppn_refScale_seas_FMA_JJA.py -i $INPUT_AGGR_DIR  -v ppn  -t integral -m $MASKFILE -o $OUTDIR/Fig4.7refScale/$STAGIONE -l Plotlist_bio.xml -s $DATESTART -e $DATEEND -seas $STAGIONE -run $RUN
 
 # several versions
 #averager_and_plot_map_ppn_refScale_seas_FMA_JJA_original.py
 #averager_and_plot_map_ppn_refScale_seas_FMA_JJA_withtableold.py
 #averager_and_plot_map_ppn_refScale_seas_FMA_JJA_with_table.py
-# 3. end #
+# end 3#
 
 #  4. fig quid time series 4.2 solo open sea #
 mkdir -p  $OUTDIR/Fig4.2/

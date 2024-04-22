@@ -144,7 +144,12 @@ elif "syn"  in RUN.lower():
 elif "ppcon" in RUN.lower():
    RUN_ = 'PPCon'
    prex='p'
+elif "DA_SATFLOAT/" == RUN:
+   RUN_ = 'DA_SATFLOAT'
+   prex='p'
+
 else:
+   raise Exception(" no run code with this name") 
    sys.exit('che run???') 
 
 # carol
