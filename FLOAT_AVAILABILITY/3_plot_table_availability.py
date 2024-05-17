@@ -9,10 +9,12 @@ sys.path.append("/g100/home/userexternal/camadio0/CA_functions/")
 from basins_CA import plot_map_subbasins
 
 NAMEVAR  = 'N3n'
+LIST_RUN = ['DA_SATFLOAT','DA_SATFLOAT_ppcon']
 list_run = ['DA_SATFLOAT','PPCon']
-LIST_RUN = ['DA_SATFLOAT','PPCon']
-WINT = [2,3,4]
-SUMM = [6,7,8]
+DATADIR  = '/g100_scratch/userexternal/camadio0/PPCON/VALIDAZIONE_RUNs/FIGURE/'
+SUFFIX   = '/AVAILABILITY_floats/'
+WINT     = [2,3,4]
+SUMM     = [6,7,8]
 
 summer_list = ['sum_' + x for x in  LIST_RUN if isinstance(x, str)]
 winter_list = ['win_' + x for x in  LIST_RUN if isinstance(x, str)]
@@ -27,7 +29,7 @@ dfs   = pd.DataFrame(index=INDEX, columns= summer_list)
 for RUN , run in zip(LIST_RUN, list_run):
     print(RUN , run)
     SAVENAME='Complete_Float_assimilated_'+ RUN +'_'+ NAMEVAR
-    df      = pd.read_csv('Complete_Float_assimilated_'+ RUN +'_'+ NAMEVAR +'.csv', index_col=0)
+    df      = pd.read_csv(DATADIR + RUN + SUFFIX + 'Complete_Float_assimilated_'+ run +'_'+ NAMEVAR +'.csv', index_col=0)
     for isub, sub in enumerate(INDEX):
        tmp  = df[df.Basin == sub]
        tmpw = tmp[tmp['month'].isin(WINT)]
